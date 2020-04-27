@@ -14,7 +14,7 @@ Note that operations those need to scan all transactions stored in the database 
 - Graph automatic construction
 - Efficient traversal of transaction flows in tangle
 - Efficent filting for different criterions and patterns
-- GUI for easy of usage
+- Support GUI
 
 ## Prerequisites
 
