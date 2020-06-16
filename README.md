@@ -14,19 +14,15 @@ Note that operations those need to scan all transactions stored in the database 
 
     - `Transaction hash`: Identify the transactions which have a (set of) specific transaction hash(es), and identify the bundles which contain these transactions.
 
-    - `signatureMessageFragment`: Identify the transactions those contain a (set of) specific signatureMessageFragment(s), and identify the bundles contain these transactions.
-
     - `address`: Identify the transactions those contain a (set of) specific address(es), and identify the bundles contain these transactions.
 
     - `value`: Identify the transactions which value is in a specific range, and identify the bundles contain these transactions.
-
-    - `obsolete tag`: Identify the transactions those contain a (set of) specific obsolete tag(s), and identify the bundles contain these transactions.
 
     - `timestamp`: Identify the transactions which timestamp is in a (set of) specific range(s), and identify the bundles contain these transactions.
 
     - `bundle hash`: Identify the transactions which have a (set of) specific transaction hash(es), and identify the bundles which contain these transactions.
 
-    - `attachmentTag`: Identify the transactions which have a (set of) specific attachmentTag(es), and identify the bundles which contain these transactions.
+    - `tag`: Identify the transactions those contain a (set of) specific tag(s), and identify the bundles contain these transactions.
 
     - `attachementTimestamp`: Identify the transactions which have a (set of) specific attachmentTag(es), and identify the bundles which contain these transactions.
 
