@@ -2,7 +2,7 @@
 
 This tool is used to analyze tangle data.
 
-It can be integrated with IOTA nodes and Chrnoicle nodes to perform online filtering, patern matching, and garph building, with GUI.
+It can be integrated with IOTA nodes and Chronicle nodes to perform online filtering, pattern matching, and graph building, with GUI.
 
 Also this tool can be used for complicated analysis (e.g., search for a specific pattern in huge IOTA historical data.)
 
@@ -10,7 +10,7 @@ Note that operations those need to scan all transactions stored in the database 
 
 ## Tool Functionalities
 - Filter all the historical data (off-line) or monitor the filtered new coming transactions by zmq event subscription from IOTA node (on-line)
-  - Filtering: **Note that AND/OR logical operations can be used with filters together.**
+  - Filtering: **Note that AND/OR logical operations can be used with the following filters together.**
 
     - `Transaction hash`: Identify the transactions which have a (set of) specific transaction hash(es), and identify the bundles which contain these transactions.
 
@@ -18,15 +18,13 @@ Note that operations those need to scan all transactions stored in the database 
 
     - `value`: Identify the transactions which value is in a specific range, and identify the bundles contain these transactions.
 
-    - `timestamp`: Identify the transactions which timestamp is in a (set of) specific range(s), and identify the bundles contain these transactions.
+    - `time`: Identify the transactions whose **`time`** is in a (set of) specific range(s), and identify the bundles contain these transactions. The rule of identifying the **`time`** in a transaction is: 
+      - For the transactions with milestones `6000`, `13157`, `18675`, `61491`, `150354`, `216223`, `242662`, and `337541`, the timestamp is used directly. ([Historical data link](https://dbfiles.iota.org/?prefix=mainnet/history/))
+      - For other milestones, the attachmentTimestamp will be used if it is not zero, else we use timestamp directly.
 
     - `bundle hash`: Identify the transactions which have a (set of) specific transaction hash(es), and identify the bundles which contain these transactions.
 
     - `tag`: Identify the transactions those contain a (set of) specific tag(s), and identify the bundles contain these transactions.
-
-    - `attachementTimestamp`: Identify the transactions which have a (set of) specific attachmentTag(es), and identify the bundles which contain these transactions.
-
-    - `nonce`: Identify the transactions which have a (set of) specific attachmentTag(es), and identify the bundles which contain these transactions.
 
 - Given a set of transactions and/or bundles, construct the corresponding transaction flow graph by connecting the input and out addresses.
 
