@@ -38,3 +38,28 @@ Note that operations those need to scan all transactions stored in the database 
 ## How to run
 
 `python main.py`
+
+
+## Running Example
+
+```
+ $ python3 main.py 
+  ______                  __        ___                __                     
+ /_  __/___ _____  ____ _/ /__     /   |  ____  ____ _/ /_  ______  ___  _____
+  / / / __ `/ __ \/ __ `/ / _ \   / /| | / __ \/ __ `/ / / / /_  / / _ \/ ___/
+ / / / /_/ / / / / /_/ / /  __/  / ___ |/ / / / /_/ / / /_/ / / /_/  __/ /    
+/_/  \__,_/_/ /_/\__, /_/\___/  /_/  |_/_/ /_/\__,_/_/\__, / /___/\___/_/     
+                /____/                               /____/                   
+
+23:39:23,906 INFO: Version: tangle-analyzer-alpha-v0.1.0
+
+...
+
+^C23:39:25,923 DEBUG: Received exit signal SIGINT...
+23:39:25,923 DEBUG: Closing database connections
+23:39:25,923 DEBUG: Cancelling 20 tasks
+23:39:25,924 DEBUG: Shutting down ThreadPoolExecutor
+23:39:25,924 DEBUG: Releasing 1 threads from executor
+23:39:25,924 DEBUG: Flushing metrics
+23:39:25,924 DEBUG: Successfully shutdown. Good bye~
+```
