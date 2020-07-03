@@ -1,0 +1,42 @@
+[version]
+version = "tangle-analyzer-alpha-v0.1.0"
+service = "Tangle Analyzer"
+
+# logger settings
+[logger]
+level = "DEBUG"
+
+[filters]
+# addresses = ["ZLGVEQ9JUZZWCZXLWVNTHBDX9G9KZTJP9VEERIIFHY9SIQKYBVAHIMLHXPQVE9IXFDDXNHQINXJDRPFDX"]
+addresses = []
+bundle = []
+tag = []
+transactions = []
+
+
+# Setting for rlse:
+#     'R' for start < time < end
+#     'm' for time > start
+#     'M' for time < end
+#     'E' for time = start
+#     'RE' for start <= time <= end
+#     'mE' for time >= start
+#     'ME' for time <= end
+[[filters.time]]
+    start = "20190101"
+    end = "20200705"
+    rlse = 'RE'
+
+
+# Setting for rlsq:
+#     'R' for min < value < max
+#     'm' for value > min
+#     'M' for value < max
+#     'E' for value = min
+#     'RE' for min <= value <= max
+#     'mE' for value >= min
+#     'ME' for value <= max
+[[filters.value]]
+    min = 0
+    max = 100
+    rlse = 'RE'
