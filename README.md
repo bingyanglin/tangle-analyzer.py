@@ -35,6 +35,6 @@ Note that operations those need to scan all transactions stored in the database 
 - Python 3.8+
 - [PyOTA] https://github.com/iotaledger/iota.py
 
-## Examples
+## How to run
 
-TODO
+`python main.py`
