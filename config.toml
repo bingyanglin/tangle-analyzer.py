@@ -7,7 +7,6 @@ service = "Tangle Analyzer"
 level = "DEBUG"
 
 [filters]
-# addresses = ["ZLGVEQ9JUZZWCZXLWVNTHBDX9G9KZTJP9VEERIIFHY9SIQKYBVAHIMLHXPQVE9IXFDDXNHQINXJDRPFDX"]
 addresses = []
 bundle = []
 tag = []
