@@ -84,7 +84,6 @@ class ZmqSub():
                                 instance_name=instance_name, content=content)
             # publish an item
             queue.put(msg)
-            # print(content)
             logging.debug(f"Received {content[0].split()[0]}")
         s.close()
 
