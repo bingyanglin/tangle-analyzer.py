@@ -1,4 +1,5 @@
 from typing import Callable
+from ..common.const import TRANSACTION_HASH_LENGTH
 import logging
 
 __all__ = [
@@ -48,6 +49,20 @@ class TransactionFilter():
             logging.error(
                 "Objects for transaction filtering do not have transaction item!")
 
+    def _transaction_filter_str(self, transaction: str) -> bool:
+        """Transaction filter
+
+        Parameters
+        ----------
+        transaction : str
+            The transaction for filtering
+
+        """
+        try:
+            return transaction[-TRANSACTION_HASH_LENGTH:] in self._transaction_set
+        except:
+            logging.error(f"Cannot identify transaction hash: {transaction}!")
+
     def make_filter(self) -> Callable:
         """Transaction filter generation function.
 
@@ -56,4 +71,4 @@ class TransactionFilter():
         The built transaction filter.
 
         """
-        return self._transaction_filter
+        return self._transaction_filter_str

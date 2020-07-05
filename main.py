@@ -17,7 +17,7 @@ def main():
     # Set the debug level
     debug_level = config['logger']['level']
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=debug_level,
         format="%(asctime)s,%(msecs)d %(levelname)s: %(message)s",
         datefmt="%H:%M:%S",
     )
@@ -34,6 +34,7 @@ def main():
     transaction_set = set(filters.get('transaction', []))
     time_list = filters.get('time', {})
     value_list = filters.get('value', {})
+    zmq_conf = config.get("zmq", {})
 
     # Make filters
     filter_list = []
@@ -51,9 +52,11 @@ def main():
     for t in value_list:
         filter_list.append(ValueFilter(
             min=int(t['min']), max=int(t['max'])).make_filter(t['rlse']))
-    sub = ZmqSub(url='tcp://zmq.iota.org:5556',
-                 topic='trytes', filterlist=filter_list)
-    sub.run()
+
+    if zmq_conf:
+        sub = ZmqSub(url=zmq_conf['node_ip'],
+                     topic=zmq_conf['topic'], filterlist=filter_list)
+        sub.run()
 
 
 if __name__ == "__main__":

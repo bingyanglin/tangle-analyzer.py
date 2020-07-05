@@ -14,6 +14,7 @@ import time
 import uuid
 import attr
 import iota
+from ..common.const import ZMQ_TRYTES_TOPIC_OFFSET
 
 __all__ = [
     'zmq_init',
@@ -60,7 +61,7 @@ class ZmqSub():
         Start to run the zmq subscriber and receive new coming transactions.
     """
 
-    def __init__(self, url='tcp://zmq.devnet.iota.org:5556', topic='tx', filterlist=[]) -> None:
+    def __init__(self, url='tcp://zmq.iota.org:5556', topic='trytes', filterlist=[]) -> None:
         self.threads = set()
         self.url = url
         self.topic = topic
@@ -84,7 +85,7 @@ class ZmqSub():
                                 instance_name=instance_name, content=content)
             # publish an item
             queue.put(msg)
-            logging.debug(f"Received {content[0].split()[0]}")
+            logging.info(f"Received {content[0][:20]}...")
         s.close()
 
     async def save(self, msg) -> None:
@@ -96,9 +97,12 @@ class ZmqSub():
             Consumed event message to be saved.
         """
         # try:
-        trytes = msg.content[0].split()[1]
-        logging.debug(
-            f"Saved {trytes[:10]} into database")
+        trytes_hash = (msg.content[0][ZMQ_TRYTES_TOPIC_OFFSET:],)
+        logging.info(f"Start to filter...")
+        for f in self.filterlist:
+            trytes_hash = tuple(filter(f, trytes_hash))
+        if trytes_hash:
+            logging.info(f"Saved {trytes_hash[0][:20]}... into database")
         # TODO: save the filtered trytes to database
         msg.save = True
 
@@ -136,10 +140,10 @@ class ZmqSub():
         while not event.is_set():
 
             msg.extended_cnt += 1
-            logging.info(f"Extended deadline by 3 seconds for {msg}")
-        #     # want to sleep for less than the deadline amount
-            await asyncio.sleep(5)
-        # await self.filter(msg)
+            logging.debug(f"Extended deadline by 3 seconds for {msg}")
+
+            # want to sleep for less than the deadline amount
+            await asyncio.sleep(2)
 
     async def handle_message(self, msg) -> None:
         """Kick off tasks for a given message.
@@ -183,20 +187,20 @@ class ZmqSub():
     async def shutdown(self, loop, executor, signal=None) -> None:
         """Cleanup tasks tied to the service's shutdown."""
         if signal:
-            logging.debug(f"Received exit signal {signal.name}...")
-        logging.debug("Closing database connections")
+            logging.info(f"Received exit signal {signal.name}...")
+        logging.info("Closing database connections")
         tasks = [t for t in asyncio.all_tasks() if t is not
                  asyncio.current_task()]
 
         [task.cancel() for task in tasks]
 
-        logging.debug(f"Cancelling {len(tasks)} tasks")
+        logging.info(f"Cancelling {len(tasks)} tasks")
         await asyncio.gather(*tasks, return_exceptions=True)
 
-        logging.debug("Shutting down ThreadPoolExecutor")
+        logging.info("Shutting down ThreadPoolExecutor")
         executor.shutdown(wait=False)
 
-        logging.debug(
+        logging.info(
             f"Releasing {len(executor._threads)} threads from executor")
         for thread in executor._threads:
             try:
@@ -204,7 +208,7 @@ class ZmqSub():
             except Exception:
                 pass
 
-        logging.debug(f"Flushing metrics")
+        logging.info(f"Flushing metrics")
         loop.stop()
 
     def run(self) -> None:
@@ -227,4 +231,4 @@ class ZmqSub():
             loop.run_forever()
         finally:
             loop.close()
-            logging.debug("Successfully shutdown. Good bye~")
+            logging.info("Successfully shutdown. Good bye~")

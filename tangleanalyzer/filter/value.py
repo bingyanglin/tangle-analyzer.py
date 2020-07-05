@@ -1,4 +1,6 @@
 from typing import Callable
+from ..common.const import VALUE_B, VALUE_E
+from ..common import tryte_to_int
 import logging
 
 __all__ = [
@@ -85,6 +87,48 @@ class ValueFilter():
             logging.error(
                 "Objects for smaller value filtering (v<=max) do not have value item!")
 
+    def _value_range_filter_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) < self._max and tryte_to_int(transaction, VALUE_B, VALUE_E) > self._min
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
+    def _value_filter_larger_than_min_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) > self._min
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
+    def _value_filter_smaller_than_max_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) < self._max
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
+    def _value_euqal_filter_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) == self._min
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
+    def _value_range_with_euqal_filter_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) <= self._max and tryte_to_int(transaction, VALUE_B, VALUE_E) >= self._min
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
+    def _value_filter_equal_to_or_larger_than_min_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) >= self._min
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
+    def _value_filter_equal_to_or_smaller_than_max_str(self, transaction: str) -> bool:
+        try:
+            return tryte_to_int(transaction, VALUE_B, VALUE_E) <= self._max
+        except:
+            logging.error(f"Cannot identify value: {transaction}!")
+
     def make_filter(self, range_larger_smaller='R') -> Callable:
         """Value filter generation function.
 
@@ -106,19 +150,19 @@ class ValueFilter():
 
         """
         if range_larger_smaller == 'R':
-            return self._value_range_filter
+            return self._value_range_filter_str
         elif range_larger_smaller == 'm':
-            return self._value_filter_larger_than_min
+            return self._value_filter_larger_than_min_str
         elif range_larger_smaller == 'M':
-            return self._value_filter_smaller_than_max
+            return self._value_filter_smaller_than_max_str
         elif range_larger_smaller == 'E':
-            return self._value_euqal_filter
+            return self._value_euqal_filter_str
         elif range_larger_smaller == 'RE':
-            return self._value_range_with_euqal_filter
+            return self._value_range_with_euqal_filter_str
         elif range_larger_smaller == 'mE':
-            return self._value_filter_equal_to_or_larger_than_min
+            return self._value_filter_equal_to_or_larger_than_min_str
         elif range_larger_smaller == 'ME':
-            return self._value_filter_equal_to_or_smaller_than_max
+            return self._value_filter_equal_to_or_smaller_than_max_str
         else:
             raise ValueError(
                 "{} is not supported!".format(range_larger_smaller))

@@ -1,6 +1,8 @@
 from typing import Callable
 from datetime import datetime, timezone
 from time import mktime
+from ..common.const import MILESTONES_USING_TIMESTAMP_ONLY, TIMESTAMP_B, TIMESTAMP_E
+from ..common import tryte_to_int
 import logging
 
 __all__ = [
@@ -187,6 +189,55 @@ class TimeFilter():
             logging.error(
                 "Objects for smaller time filtering (time<=max) do not have time item!")
 
+    def _time_range_filter_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t < self._max and t > self._min
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
+    def _time_filter_larger_than_min_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t > self._min
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
+    def _time_filter_smaller_than_max_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t < self._max
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
+    def _time_euqal_filter_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t == self._min
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
+    def _time_range_with_euqal_filter_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t <= self._max and t >= self._min
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
+    def _time_filter_equal_to_or_larger_than_min_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t >= self._min
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
+    def _time_filter_equal_to_or_smaller_than_max_str(self, transaction: str) -> bool:
+        try:
+            t = tryte_to_int(transaction, TIMESTAMP_B, TIMESTAMP_E)
+            return t <= self._max
+        except:
+            logging.error(f"Cannot identify timestamp: {transaction}!")
+
     def make_filter(self, range_larger_smaller='R') -> Callable:
         """time filter generation function.
 
@@ -208,19 +259,19 @@ class TimeFilter():
 
         """
         if range_larger_smaller == 'R':
-            return self._time_range_filter
+            return self._time_range_filter_str
         elif range_larger_smaller == 'm':
-            return self._time_filter_larger_than_min
+            return self._time_filter_larger_than_min_str
         elif range_larger_smaller == 'M':
-            return self._time_filter_smaller_than_max
+            return self._time_filter_smaller_than_max_str
         elif range_larger_smaller == 'E':
-            return self._time_euqal_filter
+            return self._time_euqal_filter_str
         elif range_larger_smaller == 'RE':
-            return self._time_range_with_euqal_filter
+            return self._time_range_with_euqal_filter_str
         elif range_larger_smaller == 'mE':
-            return self._time_filter_equal_to_or_larger_than_min
+            return self._time_filter_equal_to_or_larger_than_min_str
         elif range_larger_smaller == 'ME':
-            return self._time_filter_equal_to_or_smaller_than_max
+            return self._time_filter_equal_to_or_smaller_than_max_str
         else:
             raise ValueError(
                 "{} is not supported!".format(range_larger_smaller))

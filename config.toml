@@ -2,9 +2,13 @@
 version = "tangle-analyzer-alpha-v0.1.0"
 service = "Tangle Analyzer"
 
-# logger settings
+# logger settings: INFO, DEBUG, ERROR, WARNING, CRITICAL
 [logger]
-level = "DEBUG"
+level = "INFO"
+
+[zmq]
+node_ip = "tcp://zmq.iota.org:5556"
+topic = "trytes"
 
 [filters]
 addresses = []
@@ -23,7 +27,7 @@ transactions = []
 #     'ME' for time <= end
 [[filters.time]]
     start = "20190101"
-    end = "20200705"
+    end = "20200706"
     rlse = 'RE'
 
 
