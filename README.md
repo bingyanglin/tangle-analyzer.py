@@ -35,6 +35,64 @@ Note that operations those need to scan all transactions stored in the database 
 - Python 3.8+
 - [PyOTA] https://github.com/iotaledger/iota.py
 
+## User Configurations
+
+- Use `config.toml` to configure the settings
+- The following shows an configuration example
+```yaml
+[version]
+name = "tangle-analyzer-alpha-v0.1.0"
+service = "Tangle Analyzer"
+
+# logger settings
+[logger]
+level = "INFO" # INFO, DEBUG, ERROR, WARNING, CRITICAL
+
+# zmq settings
+[zmq]
+enable = "FALSE" # TURE or FALSE
+node_ip = "tcp://zmq.iota.org:5556"
+topic = "trytes"
+
+# dmp file settings
+[dmp]
+enable = "TRUE" # TRUE or FALSE
+input_folder = "dmp" # The historical dmp files from https://dbfiles.iota.org/?prefix=mainnet/history/
+output_folder = "decoded_data"
+
+[filters]
+addresses = []
+bundle = []
+tag = []
+transactions = []
+
+# Setting for rlse:
+#     'R' for start < time < end
+#     'm' for time > start
+#     'M' for time < end
+#     'E' for time = start
+#     'RE' for start <= time <= end
+#     'mE' for time >= start
+#     'ME' for time <= end
+[[filters.time]]
+    start = "20090101"
+    end = "20200706"
+    rlse = 'RE'
+
+# Setting for rlsq:
+#     'R' for min < value < max
+#     'm' for value > min
+#     'M' for value < max
+#     'E' for value = min
+#     'RE' for min <= value <= max
+#     'mE' for value >= min
+#     'ME' for value <= max
+[[filters.value]]
+    min = 0
+    max = 100
+    rlse = 'RE'
+```
+
 ## How to run
 
 `python main.py`
