@@ -40,6 +40,7 @@ Note that operations those need to scan all transactions stored in the database 
 - Use `config.toml` to configure the settings
 - The following shows an configuration example
 ```yaml
+# version details
 [version]
 name = "tangle-analyzer-alpha-v0.1.0"
 service = "Tangle Analyzer"
@@ -60,6 +61,9 @@ enable = "TRUE" # TRUE or FALSE
 input_folder = "dmp" # The historical dmp files from https://dbfiles.iota.org/?prefix=mainnet/history/
 output_folder = "decoded_data"
 
+# filter settings
+# Note: blank list represents `no filtering` to the target field.
+#       If a filter is set, then only transactions meet the filter conidtion will be reserved
 [filters]
 addresses = []
 bundle = []
