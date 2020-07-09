@@ -1,21 +1,28 @@
 [version]
-version = "tangle-analyzer-alpha-v0.1.0"
+name = "tangle-analyzer-alpha-v0.1.0"
 service = "Tangle Analyzer"
 
-# logger settings: INFO, DEBUG, ERROR, WARNING, CRITICAL
+# logger settings
 [logger]
-level = "INFO"
+level = "INFO" # INFO, DEBUG, ERROR, WARNING, CRITICAL
 
+# zmq settings
 [zmq]
+enable = "FALSE" # TURE or FALSE
 node_ip = "tcp://zmq.iota.org:5556"
 topic = "trytes"
+
+# dmp file settings
+[dmp]
+enable = "TRUE" # TRUE or FALSE
+input_folder = "dmp" # The historical dmp files from https://dbfiles.iota.org/?prefix=mainnet/history/
+output_folder = "decoded_data"
 
 [filters]
 addresses = []
 bundle = []
 tag = []
 transactions = []
-
 
 # Setting for rlse:
 #     'R' for start < time < end
@@ -26,10 +33,9 @@ transactions = []
 #     'mE' for time >= start
 #     'ME' for time <= end
 [[filters.time]]
-    start = "20190101"
+    start = "20090101"
     end = "20200706"
     rlse = 'RE'
-
 
 # Setting for rlsq:
 #     'R' for min < value < max

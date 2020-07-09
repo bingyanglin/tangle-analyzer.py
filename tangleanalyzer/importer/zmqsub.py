@@ -96,9 +96,8 @@ class ZmqSub():
         msg : PubSubMessage
             Consumed event message to be saved.
         """
-        # try:
         trytes_hash = (msg.content[0][ZMQ_TRYTES_TOPIC_OFFSET:],)
-        logging.info(f"Start to filter...")
+        logging.info(f"Start filtering...")
         for f in self.filterlist:
             trytes_hash = tuple(filter(f, trytes_hash))
         if trytes_hash:
