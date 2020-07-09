@@ -8,7 +8,7 @@ Also this tool can be used for complicated analysis (e.g., search for a specific
 
 Note that operations those need to scan all transactions stored in the database can be **ONLY** performed offline. The reason is that the scan operation in database to get all historical transactions is time consuming and costly. A better alternative is to perform parallel processing to collect/analyze all the data in tangle. Here is an example: One needs to filter the transactions whose value is larger than 0 from 2017/1/1 to 2020/1/1, then the user needs to use the dmp file(s) as input(s).
 
-## Tool Functionalities
+## Tool Features
 - Filter all the historical data (off-line) or monitor the filtered new coming transactions by zmq event subscription from IOTA node (on-line)
   - Filtering: **Note that AND/OR logical operations can be used with the following filters together.**
 
@@ -30,10 +30,24 @@ Note that operations those need to scan all transactions stored in the database 
 
 - Monitor a set of addresses(es) and the identify the corresponding output addresses if new transactions are requested.
 
+## Action Items
+- [X] Support flexible filtering for both online and offline data
+- [X] Support parallel computing for offline data analysis
+- [X] Support asynchronous processing for online data analysis
+- [X] Support CLI with toml configuration file for ease of usage
+- [ ] Enable storing and retreiving the filtered data with database
+- [ ] Build web-based dashboard
+- [ ] Show constrcuted tangle in dashboard
+
 ## Prerequisites
 
 - Python 3.8+
 - [PyOTA] https://github.com/iotaledger/iota.py
+
+## Setup
+
+- [Download and install](https://www.python.org/)] the latest Python 3.8+
+- `pip install pyota`
 
 ## User Configurations
 
