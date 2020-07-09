@@ -46,7 +46,7 @@ Note that operations those need to scan all transactions stored in the database 
 
 ## Setup
 
-- [Download and install](https://www.python.org/)] the latest Python 3.8+
+- [Download and install](https://www.python.org/) the latest Python 3.8+
 - `pip install pyota`
 
 ## User Configurations
