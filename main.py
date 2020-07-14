@@ -63,7 +63,7 @@ def main():
             min=int(v['min']),
             max=int(v['max'])).make_filter(v['rlse']))
 
-    if (zmq_conf := config.get("zmq", {})).get("enable", "FALSE") == "TRUE":
+    if (zmq_conf := config.get("zmq", {})).get("enable", False) == True:
         time_filter_list = []
         for t in time_list:
             time_filter_list.append(TimeFilter(
@@ -74,7 +74,7 @@ def main():
                      filterlist=filter_list+time_filter_list)
         sub.run()
 
-    if (dmp_conf := config.get("dmp", {})).get("enable", "FALSE") == "TRUE":
+    if (dmp_conf := config.get("dmp", {})).get("enable", False) == True:
         dmp_time_filter_list = []
         for t in time_list:
             dmp_time_filter_list.append(TimeFilter(

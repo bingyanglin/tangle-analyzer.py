@@ -65,13 +65,13 @@ level = "INFO" # INFO, DEBUG, ERROR, WARNING, CRITICAL
 
 # zmq settings
 [zmq]
-enable = "FALSE" # TURE or FALSE
+enable = false # true or false
 node_ip = "tcp://zmq.iota.org:5556"
 topic = "trytes"
 
 # dmp file settings
 [dmp]
-enable = "TRUE" # TRUE or FALSE
+enable = true # true or false
 input_folder = "dmp" # The historical dmp files from https://dbfiles.iota.org/?prefix=mainnet/history/
 output_folder = "decoded_data"
 
