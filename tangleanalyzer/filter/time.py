@@ -1,7 +1,13 @@
 from typing import Callable
 from datetime import datetime, timezone
 from time import mktime
-from ..common.const import MILESTONES_USING_TIMESTAMP_ONLY, TIMESTAMP_B, TIMESTAMP_E, ATCH_TIMESTAMP_B, ATCH_TIMESTAMP_E
+from ..common.const import (
+    MILESTONES_USING_TIMESTAMP_ONLY,
+    TIMESTAMP_B,
+    TIMESTAMP_E,
+    ATCH_TIMESTAMP_B,
+    ATCH_TIMESTAMP_E
+)
 from ..common import tryte_to_int
 import logging
 
