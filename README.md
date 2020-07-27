@@ -2,7 +2,7 @@
 
 ## About
 
-![](analyzer_flow.png)
+![](analyzer_flow.bmp)
 
 This tool is used to analyze tangle data.
 
