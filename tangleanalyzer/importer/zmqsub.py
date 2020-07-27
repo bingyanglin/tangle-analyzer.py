@@ -14,6 +14,8 @@ import time
 import uuid
 import attr
 import iota
+from kafka import KafkaProducer
+import os
 from ..common.const import ZMQ_TRYTES_TOPIC_OFFSET
 
 __all__ = [
@@ -66,6 +68,8 @@ class ZmqSub():
         self.url = url
         self.topic = topic
         self.filterlist = filterlist
+        self.producer = KafkaProducer(
+            bootstrap_servers='localhost:9092', api_version=(2, 5, 0))
 
     async def push_zmq_msg(self, queue) -> None:
         choices = string.ascii_lowercase + string.digits
@@ -85,6 +89,7 @@ class ZmqSub():
                                 instance_name=instance_name, content=content)
             # publish an item
             queue.put(msg)
+            self.producer.send("test", value=content[0])
             logging.info(f"Received {content[0][:20]}...")
         s.close()
 

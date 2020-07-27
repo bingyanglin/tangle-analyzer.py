@@ -66,8 +66,8 @@ class DmpDecode():
             tag = tx_str[TAG_B: TAG_E]
 
             # Note that for the same to_store string the timestamp will be overrided!
-            to_store = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
-                tx_hash_str, address, value, timestamp, current_index,
+            to_store = "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+                tx_str, tx_hash_str, address, value, timestamp, current_index,
                 last_index, bundle, trunk, branch, tag, attachtimestamp)
 
             # logging.info(f"to_sore = {to_store}")
@@ -77,7 +77,7 @@ class DmpDecode():
 
         # Reorder by the timestamp
         with open("{}/{}.txt".format(self.decoded_dmp_folder, filename.split(".")[0]), 'w') as f:
-            f.write("time\ttx_hash_str\taddress\tvalue\ttimestamp\tcurrent_index\tlast_index\tbundle\ttrunk\tbranch\ttag\tattachtimestamp\n")
+            f.write("time\ttx\ttx_hash_str\taddress\tvalue\ttimestamp\tcurrent_index\tlast_index\tbundle\ttrunk\tbranch\ttag\tattachtimestamp\n")
             for k, v in tx_time_dict.items():
                 f.write("{}\t{}\n".format(datetime.datetime.fromtimestamp(
                     v, tz=datetime.timezone.utc).strftime("%Y%m%d"), k))
