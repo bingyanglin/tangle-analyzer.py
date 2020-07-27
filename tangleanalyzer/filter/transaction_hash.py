@@ -1,5 +1,5 @@
 from typing import Callable
-from . import SetFilter
+from .base_filter import SetFilter
 from ..common.const import TRANSACTION_HASH_LENGTH
 
 

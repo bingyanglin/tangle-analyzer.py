@@ -1,4 +1,4 @@
-from . import SetFilter
+from .base_filter import SetFilter
 from ..common.const import TAG_B, TAG_E
 
 

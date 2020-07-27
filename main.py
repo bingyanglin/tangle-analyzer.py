@@ -10,7 +10,7 @@ from tangleanalyzer import (
     BundleFilter,
     TagFilter,
     TimeFilter,
-    TransactionFilter,
+    TransactionHashFilter,
     ValueFilter
 )
 

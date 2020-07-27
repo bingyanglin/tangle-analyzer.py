@@ -1,4 +1,4 @@
-from . import SetFilter
+from .base_filter import SetFilter
 from ..common.const import BUNDLE_HASH_B, BUNDLE_HASH_E
 
 __all__ = [
@@ -13,7 +13,7 @@ class BundleFilter(SetFilter):
 
     Pamameters
     ----------
-    bundle_filter : set
+    bundle_set : set
         The bundle set for monitoring.
     """
 

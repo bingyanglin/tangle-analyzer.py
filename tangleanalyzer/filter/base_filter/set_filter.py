@@ -44,9 +44,12 @@ class SetFilter():
         self._end = end
 
     def __str__(self):
-        return f'{self._name}: {self._inclusive_set}\nBegin, End: {self._begin}, {self._end}'
+        return (f'Name: {self._name}\n' +
+                f'Inclusive Set: {self._inclusive_set}\n' +
+                f'Begin: {self._begin}\n' +
+                f'End: {self._end}')
 
-    def _filter_for_dict(self, transaction: dict) -> bool:
+    def _for_dict(self, transaction: dict) -> bool:
         """Inclusive filter for transaction dict.
 
         Parameters
@@ -66,7 +69,7 @@ class SetFilter():
             raise ValueError(
                 f"Objects for {self._name} filtering do not have the field!")
 
-    def _filter_for_str(self, transaction: str) -> bool:
+    def _for_str(self, transaction: str) -> bool:
         """Inclusive filter on tryte string directly.
 
         Parameters
@@ -81,7 +84,8 @@ class SetFilter():
                 f"Cannot identify {self._name} in trytes {transaction}!")
 
     def make_filter(self, filter_type="str") -> Callable:
-        """
+        """Make a set filter.
+
         Parameters
         ----------
         filter_type : str
@@ -94,9 +98,9 @@ class SetFilter():
 
         """
         if filter_type == "str":
-            return self._filter_for_str
+            return self._for_str
         elif filter_type == "dict":
-            return self._filter_for_dict
+            return self._for_dict
         else:
             ValueError(
                 f"Cannot identify {filter_type}, please use \"str\" or \"dict\"!")
